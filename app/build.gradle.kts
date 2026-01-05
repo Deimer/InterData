@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+    //Module
+    implementation(projects.usecase)
     //Runtime
     implementation(libs.lifecycle.runtime.ktx)
     //Kotlin
