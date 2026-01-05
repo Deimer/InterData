@@ -1,4 +1,4 @@
-package com.testdeymervilla.network.dto
+package com.testdeymervilla.network.dto.request
 
 import com.google.gson.annotations.SerializedName
 

@@ -24,5 +24,5 @@ data class SchemaEntity(
     @ColumnInfo(name = Columns.FIELDS_COUNT)
     val fieldsCount: Int,
     @ColumnInfo(name = Columns.UPDATE_DATE)
-    val updateDate: String
+    val updatedAt: String
 )
