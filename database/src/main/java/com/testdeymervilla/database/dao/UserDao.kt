@@ -12,13 +12,13 @@ import com.testdeymervilla.database.entities.UserEntity
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: UserEntity)
+    suspend fun insert(user: UserEntity): Long
 
     @Update
-    suspend fun update(userEntity: UserEntity)
+    suspend fun update(userEntity: UserEntity): Int
 
     @Query("DELETE FROM $USER_TABLE")
-    suspend fun clear()
+    suspend fun clear(): Int
 
     @Query("SELECT * FROM $USER_TABLE LIMIT 1")
     suspend fun fetch(): UserEntity

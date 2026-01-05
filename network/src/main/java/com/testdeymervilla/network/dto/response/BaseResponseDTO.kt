@@ -8,5 +8,5 @@ data class BaseResponseDTO<T>(
     @SerializedName("Mensaje")
     val message: String? = null,
     @SerializedName("Data")
-    val data: T? = null
+    val data: T
 )

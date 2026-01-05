@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginRequestDTO(
     @SerializedName("Mac")
-    val macAddress: String? = null,
+    val macAddress: String = "",
     @SerializedName("NomAplicacion")
-    val applicationName: String? = null,
-    @SerializedName("Password")
-    val password: String? = null,
+    val applicationName: String = "Controller APP",
     @SerializedName("Path")
-    val path: String? = null,
+    val path: String = "",
     @SerializedName("Usuario")
-    val username: String? = null
+    val username: String,
+    @SerializedName("Password")
+    val password: String,
 )
