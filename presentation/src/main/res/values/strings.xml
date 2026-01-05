@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="title_welcome">Technical Test Android</string>
+
+    <string name="home">Home</string>
+    <string name="date_created">Date created:</string>
+    <string name="same">Same</string>
+    <string name="greater">Greater</string>
+    <string name="lower">Lower</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="connection_error_message">There was an error connecting to the server. Please check your internet connection and try again.</string>
+    <string name="error_generic">An error occurred. Please try again later.</string>
+
+</resources>
