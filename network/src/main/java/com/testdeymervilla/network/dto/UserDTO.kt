@@ -1,8 +1,8 @@
-package com.testdeymervilla.network.dto.response
+package com.testdeymervilla.network.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponseDTO(
+data class UserDTO(
     @SerializedName("Usuario")
     val username: String? = null,
     @SerializedName("Identificacion")
