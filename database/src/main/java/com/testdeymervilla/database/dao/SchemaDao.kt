@@ -12,7 +12,7 @@ import com.testdeymervilla.database.entities.SchemaEntity
 interface SchemaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(items: List<SchemaEntity>)
+    suspend fun insert(items: List<SchemaEntity>): List<Long>
 
     @Query("SELECT * FROM $SCHEMA_TABLE ORDER BY ${Columns.ID} DESC")
     suspend fun fetch(): List<SchemaEntity>
@@ -21,8 +21,8 @@ interface SchemaDao {
     suspend fun fetchById(schemaId: Int): SchemaEntity
 
     @Query("DELETE FROM $SCHEMA_TABLE")
-    suspend fun clear()
+    suspend fun clear(): Int
 
     @Query("DELETE FROM $SCHEMA_TABLE WHERE ${Columns.ID} = :schemaId")
-    suspend fun clearById(schemaId: Int)
+    suspend fun clearById(schemaId: Int): Int
 }
