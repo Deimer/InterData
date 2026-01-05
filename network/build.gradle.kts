@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.ksp)
 }
+
+val urlDebug = providers.gradleProperty("URL_DEBUG").get()
+val urlRelease = providers.gradleProperty("URL_RELEASE").get()
 
 android {
     namespace = "com.testdeymervilla.network"
@@ -15,11 +19,24 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(
+                "String", "BASE_URL", urlDebug
+            )
+        }
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField(
+                "String", "BASE_URL", urlRelease
             )
         }
     }
@@ -30,13 +47,28 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    //Kotlin
     implementation(libs.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    //Retrofit
+    api(libs.retrofit)
+    api(libs.logging.interceptor)
+    api(libs.retrofit.converter.gson)
+    //Hilt
+    api(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    //Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    //Mockito
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.coroutines.test)
 }
