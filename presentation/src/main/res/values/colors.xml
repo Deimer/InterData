@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#0B0205</color>
+    <color name="colorPrimaryDark">#010C0A</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="chinese_black">#171717</color>
+    <color name="chinese_black_80">#CC171717</color>
+    <color name="chinese_black_60">#99171717</color>
+    <color name="chinese_black_40">#66171717</color>
+    <color name="chinese_black_20">#33171717</color>
+
+    <color name="black">#FF000000</color>
+    <color name="black_80">#CC000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_20">#33000000</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+
+    <color name="dark">#181818</color>
+    <color name="dark_80">#CC181818</color>
+    <color name="dark_60">#99181818</color>
+    <color name="dark_40">#66181818</color>
+    <color name="dark_20">#33181818</color>
+    <color name="dark_sienna">#301918</color>
+
+    <color name="golden_poppy">#F6C700</color>
+    <color name="coral">#947252</color>
+    <color name="copper_crayola">#C7A585</color>
+    <color name="coconut">#944E47</color>
+    <color name="feldspar">#F4D5AE</color>
+    <color name="macaroni">#F6BE88</color>
+    <color name="cream">#FFFEF7</color>
+    <color name="magnum">#1C1E23</color>
+    <color name="gray">#8D8F97</color>
+    <color name="mist">#A6A5A5</color>
+    <color name="silver">#D6D6D6</color>
+
+</resources>
