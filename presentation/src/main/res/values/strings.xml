@@ -1,12 +1,10 @@
 <resources>
 
     <string name="title_welcome">Technical Test Android</string>
-
+    <string name="legend_welcome">This is a technical testing application to validate the candidate\'s Android knowledge.</string>
     <string name="home">Home</string>
-    <string name="date_created">Date created:</string>
-    <string name="same">Same</string>
-    <string name="greater">Greater</string>
-    <string name="lower">Lower</string>
+    <string name="greater_version">The application version is superior to the official version.\nSome features may not work as expected.</string>
+    <string name="lower_version">A newer application version is available.\nPlease update the application for better performance.</string>
     <string name="connection_error">Connection Error</string>
     <string name="connection_error_message">There was an error connecting to the server. Please check your internet connection and try again.</string>
     <string name="error_generic">An error occurred. Please try again later.</string>

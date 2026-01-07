@@ -3,6 +3,7 @@ package com.testdeymervilla.repository.mappers
 import com.testdeymervilla.database.entities.UserEntity
 import com.testdeymervilla.network.dto.UserDTO
 import com.testdeymervilla.repository.domain.UserDomain
+import com.testdeymervilla.repository.utils.orZero
 
 fun UserDTO.toEntity(): UserEntity {
     val dto = this
@@ -14,12 +15,12 @@ fun UserDTO.toEntity(): UserEntity {
     )
 }
 
-fun UserEntity.toDomain(): UserDomain {
+fun UserEntity?.toDomain(): UserDomain {
     val entity = this
     return UserDomain(
-        id = entity.id,
-        username = entity.user,
-        identification = entity.identification,
-        fullName = entity.fullName
+        id = entity?.id.orZero(),
+        username = entity?.user.orEmpty(),
+        identification = entity?.identification.orEmpty(),
+        fullName = entity?.fullName.orEmpty()
     )
 }

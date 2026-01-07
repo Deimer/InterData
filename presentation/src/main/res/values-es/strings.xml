@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_welcome">Prueba Técnica Android</string>
+    <string name="legend_welcome">Esta es una aplicación de prueba técnica para validar los conocimientos en Android del candidato.</string>
+    <string name="home">Inicio</string>
+    <string name="greater_version">La versión de la aplicación es superior a la versión oficial.\nAlgunas funcionalidades podrían no comportarse correctamente.</string>
+    <string name="lower_version">Existe una versión más reciente del aplicativo.\nSe recomienda actualizar la aplicación para un mejor funcionamiento.</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="connection_error_message">Ocurrió un error al conectarse con el servidor. Por favor, verifica tu conexión a internet e inténtalo nuevamente.</string>
+    <string name="error_generic">Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.</string>
+
+</resources>

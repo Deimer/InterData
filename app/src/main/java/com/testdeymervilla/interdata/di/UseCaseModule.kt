@@ -5,6 +5,7 @@ import com.testdeymervilla.repository.repositories.user.IUserRepository
 import com.testdeymervilla.usecase.schema.FetchSchemaUseCase
 import com.testdeymervilla.usecase.schema.FetchSchemasUseCase
 import com.testdeymervilla.usecase.user.FetchVersionUseCase
+import com.testdeymervilla.usecase.user.InSessionUseCase
 import com.testdeymervilla.usecase.user.LoginUseCase
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,12 @@ object UseCaseModule {
     fun provideLoginUseCase(
         userRepository: IUserRepository
     ) = LoginUseCase(userRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideInSessionUseCase(
+        userRepository: IUserRepository
+    ) = InSessionUseCase(userRepository)
 
     @Provides
     @ViewModelScoped

@@ -21,5 +21,5 @@ interface UserDao {
     suspend fun clear(): Int
 
     @Query("SELECT * FROM $USER_TABLE LIMIT 1")
-    suspend fun fetch(): UserEntity
+    suspend fun fetch(): UserEntity?
 }
