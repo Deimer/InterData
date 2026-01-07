@@ -14,7 +14,7 @@ import retrofit2.http.POST
 interface ApiService {
 
     @GET(NetworkConstants.Paths.Framework.APP_VERSION)
-    suspend fun getAppVersion(): BaseResponseDTO<VersionDTO>
+    suspend fun getAppVersion(): String?
 
     @GET(NetworkConstants.Paths.Framework.LOCALITIES)
     suspend fun getLocalities(): BaseResponseDTO<List<LocalityDTO>>

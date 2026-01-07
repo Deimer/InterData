@@ -12,7 +12,7 @@ interface IUserLocalDataSource {
         user: UserEntity
     ): Boolean
 
-    suspend fun fetch(): UserEntity
+    suspend fun fetch(): UserEntity?
 
     suspend fun clear(): Boolean
 }

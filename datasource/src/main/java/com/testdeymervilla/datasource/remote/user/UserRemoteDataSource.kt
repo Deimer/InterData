@@ -10,7 +10,7 @@ class UserRemoteDataSource @Inject constructor(
 ): IUserRemoteDataSource {
 
     override suspend fun getVersion() =
-        apiService.getAppVersion().data.version.orEmpty()
+        apiService.getAppVersion().orEmpty()
 
     override suspend fun login(
         username: String,

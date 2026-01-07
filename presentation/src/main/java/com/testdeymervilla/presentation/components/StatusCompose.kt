@@ -25,22 +25,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.models.VersionStatus
+import com.testdeymervilla.presentation.theme.GoldenPoppy
 import com.testdeymervilla.presentation.theme.IndianRed
 import com.testdeymervilla.presentation.theme.InterDataTheme
 import com.testdeymervilla.presentation.theme.JunoGreen
-import com.testdeymervilla.presentation.theme.Silver
 
 @Composable
 fun StatusCompose(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    versionStatus: VersionStatus
+    versionName: String = "",
+    versionStatus: VersionStatus?
 ) {
     Row(
         modifier = modifier.clickable { onClick.invoke() },
@@ -50,9 +52,10 @@ fun StatusCompose(
         Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_4)))
         Text(
             text = when (versionStatus) {
-                VersionStatus.SAME -> stringResource(id = R.string.same)
-                VersionStatus.LOWER -> stringResource(id = R.string.lower)
-                VersionStatus.GREATER -> stringResource(id = R.string.greater)
+                VersionStatus.SAME -> versionName
+                VersionStatus.LOWER -> stringResource(id = R.string.lower_version)
+                VersionStatus.GREATER -> stringResource(id = R.string.greater_version)
+                else -> versionName
             },
             style = MaterialTheme.typography.labelMedium,
         )
@@ -61,13 +64,14 @@ fun StatusCompose(
 
 @Composable
 fun StatusDotCompose(
-    status: VersionStatus,
+    status: VersionStatus?,
     size: Dp = dimensionResource(id = R.dimen.dimen_10)
 ) {
     val color = when (status) {
         VersionStatus.SAME -> JunoGreen
         VersionStatus.LOWER -> IndianRed
-        VersionStatus.GREATER -> Silver
+        VersionStatus.GREATER -> GoldenPoppy
+        else -> Color.Transparent
     }
     var appear by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(

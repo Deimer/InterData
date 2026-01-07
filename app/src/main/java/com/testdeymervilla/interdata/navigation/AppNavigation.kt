@@ -22,6 +22,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.testdeymervilla.interdata.features.splash.SplashScreenActions
+import com.testdeymervilla.interdata.features.splash.SplashScreenAttributes
+import com.testdeymervilla.interdata.features.splash.SplashScreenCompose
 import com.testdeymervilla.presentation.components.SnackBarCompose
 import com.testdeymervilla.presentation.utils.PresentationConstants.AnimationConstants.TRANSITION_DURATION
 import com.testdeymervilla.presentation.utils.toNegative
@@ -81,7 +84,23 @@ private fun BodyCompose(
                 enterTransition = { inFadeAnimation() },
                 exitTransition = { outFadeAnimation() }
             ) {
-
+                SplashScreenCompose(
+                    attributes = SplashScreenAttributes(
+                        actions = SplashScreenActions(
+                            onPrimaryAction = {
+                                navController.navigate(route = HomeGraph.route) {
+                                    popUpTo(RootGraph.route) { inclusive = true }
+                                }
+                            },
+                            onSecondaryAction = {
+                                navController.navigate(route = AuthGraph.route) {
+                                    popUpTo(route = RootGraph.route) { inclusive = true }
+                                }
+                            }
+                        ),
+                        snackbarHostState = snackbarHostState
+                    )
+                )
             }
         }
 
