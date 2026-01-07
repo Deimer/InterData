@@ -5,3 +5,5 @@ fun String.capital(): String {
         if (it.isLowerCase()) it.titlecase() else it.toString()
     }
 }
+
+fun Int.toNegative(): Int = if (this > 0) -this else this
