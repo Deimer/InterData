@@ -9,5 +9,13 @@
     <string name="connection_error">Error de conexión</string>
     <string name="connection_error_message">Ocurrió un error al conectarse con el servidor. Por favor, verifica tu conexión a internet e inténtalo nuevamente.</string>
     <string name="error_generic">Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.</string>
+    <string name="log_in">Inicia sesión</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+
+    <string name="enter_username_and_password">Por favor, completa todos los campos.</string>
+    <string name="enter_username">Por favor, ingresa tu usuario.</string>
+    <string name="enter_password">Por favor, ingresa tu contraseña.</string>
+    <string name="invalid_credentials">El usuario o la contraseña que ingresaste son incorrectos. Por favor, inténtalo de nuevo.</string>
 
 </resources>

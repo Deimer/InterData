@@ -9,11 +9,46 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
+@Immutable
+data class ExtendedColors(
+    val primaryButton: Color,
+    val secondaryButton: Color,
+    val miniButton: Color,
+    val onPrimaryButton: Color
+)
+
+val LocalExtendedColors = staticCompositionLocalOf {
+    ExtendedColors(
+        primaryButton = Color.Unspecified,
+        secondaryButton = Color.Unspecified,
+        miniButton = Color.Unspecified,
+        onPrimaryButton = Color.Unspecified
+    )
+}
+
+private val DarkExtendedColors = ExtendedColors(
+    primaryButton = Purple40,
+    secondaryButton = Purple40,
+    miniButton = DeepPurple,
+    onPrimaryButton = Snow
+)
+
+private val LightExtendedColors = ExtendedColors(
+    primaryButton = CyanSkyDark,
+    secondaryButton = CyanSkyDark,
+    miniButton = DeepOcean,
+    onPrimaryButton = Snow
+)
 
 private val DarkColorScheme = darkColorScheme(
     primary = Snow,
@@ -22,6 +57,7 @@ private val DarkColorScheme = darkColorScheme(
     onSecondary = Snow,
     background = ChineseBlack,
     surface = Dark,
+    surfaceTint = Purple40,
     tertiary = White60,
     onTertiary = White40,
     tertiaryContainer = White80,
@@ -36,12 +72,19 @@ private val LightColorScheme = lightColorScheme(
     onSecondary = CyanSkyDark,
     background = White60,
     surface = Snow,
+    surfaceTint = CyanSkyDark,
     tertiary = White40,
     onTertiary = White60,
     tertiaryContainer = White60,
     onTertiaryContainer = White80,
     scrim = Dark
 )
+
+object InterDataTheme {
+    val colors: ExtendedColors
+        @Composable
+        get() = LocalExtendedColors.current
+}
 
 @Composable
 fun InterDataTheme(
@@ -57,6 +100,9 @@ fun InterDataTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    val extendedColors = if(darkTheme) DarkExtendedColors else LightExtendedColors
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -66,9 +112,11 @@ fun InterDataTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

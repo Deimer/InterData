@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Semaphore
@@ -46,6 +47,13 @@ fun <T> Flow<Result<T>>.success(action: suspend (T) -> Unit): Flow<Result<T>> = 
 
 fun <T> Flow<Result<T>>.failure(action: suspend (Throwable) -> Unit): Flow<Result<T>> = onEach { result ->
     result.exceptionOrNull()?.let { action(it) }
+}
+
+fun <T> Flow<Result<T>>.ensure(
+    condition: () -> Boolean,
+    onFailure: suspend () -> Unit
+): Flow<Result<T>> = transform { result ->
+    if(condition()) emit(result) else onFailure()
 }
 
 inline fun <T, R, U> Flow<Result<T>>.attachAs(

@@ -22,6 +22,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.testdeymervilla.interdata.features.login.LoginScreenActions
+import com.testdeymervilla.interdata.features.login.LoginScreenAttributes
+import com.testdeymervilla.interdata.features.login.LoginScreenCompose
 import com.testdeymervilla.interdata.features.splash.SplashScreenActions
 import com.testdeymervilla.interdata.features.splash.SplashScreenAttributes
 import com.testdeymervilla.interdata.features.splash.SplashScreenCompose
@@ -89,12 +92,14 @@ private fun BodyCompose(
                         actions = SplashScreenActions(
                             onPrimaryAction = {
                                 navController.navigate(route = HomeGraph.route) {
-                                    popUpTo(RootGraph.route) { inclusive = true }
+                                    popUpTo(SplashScreen.route) { inclusive = true }
+                                    launchSingleTop = true
                                 }
                             },
                             onSecondaryAction = {
                                 navController.navigate(route = AuthGraph.route) {
-                                    popUpTo(route = RootGraph.route) { inclusive = true }
+                                    popUpTo(SplashScreen.route) { inclusive = true }
+                                    launchSingleTop = true
                                 }
                             }
                         ),
@@ -113,7 +118,19 @@ private fun BodyCompose(
                 enterTransition = { inFadeAnimation() },
                 exitTransition = { outFadeAnimation() }
             ) {
-
+                LoginScreenCompose(
+                    attributes = LoginScreenAttributes(
+                        actions = LoginScreenActions(
+                            onPrimaryAction = {
+                                navController.navigate(route = HomeGraph.route) {
+                                    popUpTo(LoginScreen.route) { inclusive = true }
+                                    launchSingleTop = true
+                                }
+                            }
+                        ),
+                        snackbarHostState = snackbarHostState
+                    )
+                )
             }
         }
 
