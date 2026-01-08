@@ -51,8 +51,7 @@ fun SplashScreenCompose(
 
     when(userIsLogged) {
         true -> {
-            //attributes.actions.onPrimaryAction.invoke()
-            println("User is logged")
+            attributes.actions.onPrimaryAction.invoke()
         }
         false -> {
             attributes.actions.onSecondaryAction.invoke()

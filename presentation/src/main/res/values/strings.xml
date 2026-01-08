@@ -12,10 +12,13 @@
     <string name="log_in">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-
     <string name="enter_username_and_password">Enter a username and password to continue.</string>
     <string name="enter_username">Please enter your username.</string>
     <string name="enter_password">Please enter your password.</string>
     <string name="invalid_credentials">The username or password you entered is incorrect. Please try again.</string>
+
+    <string name="hi_user">Hi %1$s!</string>
+    <string name="see_schemas">See schemas</string>
+    <string name="view_localities">View localities</string>
 
 </resources>

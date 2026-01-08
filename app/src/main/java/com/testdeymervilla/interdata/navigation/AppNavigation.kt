@@ -22,6 +22,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.testdeymervilla.interdata.features.home.HomeScreenActions
+import com.testdeymervilla.interdata.features.home.HomeScreenAttributes
+import com.testdeymervilla.interdata.features.home.HomeScreenCompose
 import com.testdeymervilla.interdata.features.login.LoginScreenActions
 import com.testdeymervilla.interdata.features.login.LoginScreenAttributes
 import com.testdeymervilla.interdata.features.login.LoginScreenCompose
@@ -143,7 +146,25 @@ private fun BodyCompose(
                 enterTransition = { inFadeAnimation() },
                 exitTransition = { outFadeAnimation() }
             ) {
-
+                HomeScreenCompose(
+                    attributes = HomeScreenAttributes(
+                        actions = HomeScreenActions(
+                            onPrimaryAction = {
+                                navController.navigate(route = SchemasGraph.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            onSecondaryAction = {
+                                navController.navigate(route = LocalitiesGraph.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        ),
+                        snackbarHostState = snackbarHostState
+                    )
+                )
             }
 
             navigation(
