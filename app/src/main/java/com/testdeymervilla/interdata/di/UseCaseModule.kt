@@ -4,6 +4,7 @@ import com.testdeymervilla.repository.repositories.schema.ISchemaRepository
 import com.testdeymervilla.repository.repositories.user.IUserRepository
 import com.testdeymervilla.usecase.schema.FetchSchemaUseCase
 import com.testdeymervilla.usecase.schema.FetchSchemasUseCase
+import com.testdeymervilla.usecase.user.FetchUserUseCase
 import com.testdeymervilla.usecase.user.FetchVersionUseCase
 import com.testdeymervilla.usecase.user.InSessionUseCase
 import com.testdeymervilla.usecase.user.LoginUseCase
@@ -16,6 +17,12 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {
+
+    @Provides
+    @ViewModelScoped
+    fun provideFetchUserUseCase(
+        userRepository: IUserRepository
+    ) = FetchUserUseCase(userRepository)
 
     @Provides
     @ViewModelScoped
