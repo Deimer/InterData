@@ -22,3 +22,10 @@ fun String.compareVersion(other: String): Int {
     }
     return 0
 }
+
+fun String.cleanInputs(): String {
+    return this.replace("\\n", "")
+        .replace("\n", "")
+        .replace("\r", "")
+        .trim()
+}

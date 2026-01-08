@@ -9,6 +9,6 @@ class SchemaRemoteDataSource @Inject constructor(
 ): ISchemaRemoteDataSource {
 
     override suspend fun fetch(): List<SchemaDTO> {
-        return apiService.getSchema().data
+        return apiService.getSchema()
     }
 }

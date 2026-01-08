@@ -17,13 +17,13 @@ interface ApiService {
     suspend fun getAppVersion(): String?
 
     @GET(NetworkConstants.Paths.Framework.LOCALITIES)
-    suspend fun getLocalities(): BaseResponseDTO<List<LocalityDTO>>
+    suspend fun getLocalities(): List<LocalityDTO>
 
     @GET(NetworkConstants.Paths.Synchronization.SCHEMA)
-    suspend fun getSchema(): BaseResponseDTO<List<SchemaDTO>>
+    suspend fun getSchema(): List<SchemaDTO>
 
     @POST(NetworkConstants.Paths.Security.LOGIN)
     suspend fun login(
         @Body request: LoginRequestDTO
-    ): BaseResponseDTO<UserDTO>
+    ): UserDTO
 }

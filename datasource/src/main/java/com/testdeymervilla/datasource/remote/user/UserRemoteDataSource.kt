@@ -20,6 +20,6 @@ class UserRemoteDataSource @Inject constructor(
             username = username,
             password = password
         )
-        return apiService.login(loginRequest).data
+        return apiService.login(loginRequest)
     }
 }
