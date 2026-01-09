@@ -1,4 +1,4 @@
-package com.testdeymervilla.interdata.features.schemas
+package com.testdeymervilla.interdata.features.localities
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.testdeymervilla.interdata.utils.mockSchemas
-import com.testdeymervilla.interdata.utils.toItems
+import com.testdeymervilla.interdata.utils.mockLocalities
+import com.testdeymervilla.interdata.utils.toModels
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.alerts.ConnectionErrorScreenCompose
 import com.testdeymervilla.presentation.alerts.ErrorDetailCompose
@@ -25,28 +25,28 @@ import com.testdeymervilla.presentation.components.ItemListCompose
 import com.testdeymervilla.presentation.components.RefreshListCompose
 import com.testdeymervilla.presentation.components.TopBarCompose
 import com.testdeymervilla.presentation.theme.InterDataTheme
-import com.testdeymervilla.repository.domain.SchemaDomain
+import com.testdeymervilla.repository.domain.LocalityDomain
 
 @Composable
-fun SchemasScreenCompose(
-    viewModel: SchemasScreenViewModel = hiltViewModel(),
-    attributes: SchemasScreenAttributes
+fun LocalitiesScreenCompose(
+    viewModel: LocalitiesScreenViewModel = hiltViewModel(),
+    attributes: LocalitiesScreenAttributes
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val schemaList by viewModel.schemaList.collectAsState()
-    val isRefreshingSchemas by viewModel.isRefreshingSchemas.collectAsState()
+    val localityList by viewModel.localityList.collectAsState()
+    val isRefreshingLocalities by viewModel.isRefreshingLocalities.collectAsState()
 
     when(uiState) {
-        is SchemasUiState.Success -> BodyCompose(
+        is LocalitiesUiState.Success -> BodyCompose(
             actions = attributes.actions,
-            schemaList = schemaList,
-            isRefreshingSchemas = isRefreshingSchemas,
-            onRefreshSchemas = { viewModel.getSchemas(true) }
+            localityList = localityList,
+            isRefreshingLocalities = isRefreshingLocalities,
+            onRefreshLocalities = { viewModel.getLocalities(true) }
         )
-        is SchemasUiState.Loading -> LoadingScreenCompose()
-        is SchemasUiState.ConnectionError -> ConnectionErrorScreenCompose()
-        is SchemasUiState.Error -> {
-            val errorMessage = (uiState as SchemasUiState.Error).message
+        is LocalitiesUiState.Loading -> LoadingScreenCompose()
+        is LocalitiesUiState.ConnectionError -> ConnectionErrorScreenCompose()
+        is LocalitiesUiState.Error -> {
+            val errorMessage = (uiState as LocalitiesUiState.Error).message
             ErrorDetailCompose(errorMessage, attributes.snackbarHostState)
         }
     }
@@ -54,10 +54,10 @@ fun SchemasScreenCompose(
 
 @Composable
 private fun BodyCompose(
-    actions: SchemasScreenActions,
-    schemaList: List<SchemaDomain>,
-    isRefreshingSchemas: Boolean,
-    onRefreshSchemas: () -> Unit,
+    actions: LocalitiesScreenActions,
+    localityList: List<LocalityDomain>,
+    isRefreshingLocalities: Boolean,
+    onRefreshLocalities: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(
@@ -68,16 +68,16 @@ private fun BodyCompose(
         TopBarCompose(
             navigationIcon = R.drawable.ic_back,
             onNavigationClick = actions.onPrimaryAction,
-            subtitle = stringResource(id = R.string.schemas),
+            subtitle = stringResource(id = R.string.localities),
             modifier = Modifier,
         )
         RefreshListCompose(
             modifier = Modifier.fillMaxWidth(),
-            isRefreshing = isRefreshingSchemas,
-            onRefresh = onRefreshSchemas,
+            isRefreshing = isRefreshingLocalities,
+            onRefresh = onRefreshLocalities,
         ) {
-            val items = schemaList.toItems(
-                startIconRes = R.drawable.ic_schema,
+            val items = localityList.toModels(
+                startIconRes = R.drawable.ic_locality,
                 onItemClick = actions.onSecondaryAction
             )
             ItemListCompose(
@@ -99,16 +99,16 @@ private fun BodyCompose(
 )
 @Composable
 private fun BodyComposePreview() {
-    val mockActions = SchemasScreenActions(
+    val mockActions = LocalitiesScreenActions(
         onPrimaryAction = {},
         onSecondaryAction = {}
     )
     InterDataTheme {
         BodyCompose(
             actions = mockActions,
-            schemaList = mockSchemas,
-            isRefreshingSchemas = false,
-            onRefreshSchemas = {}
+            localityList = mockLocalities,
+            isRefreshingLocalities = false,
+            onRefreshLocalities = {}
         )
     }
 }

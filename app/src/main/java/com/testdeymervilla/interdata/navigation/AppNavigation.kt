@@ -25,6 +25,12 @@ import androidx.navigation.navArgument
 import com.testdeymervilla.interdata.features.home.HomeScreenActions
 import com.testdeymervilla.interdata.features.home.HomeScreenAttributes
 import com.testdeymervilla.interdata.features.home.HomeScreenCompose
+import com.testdeymervilla.interdata.features.localities.LocalitiesScreenActions
+import com.testdeymervilla.interdata.features.localities.LocalitiesScreenAttributes
+import com.testdeymervilla.interdata.features.localities.LocalitiesScreenCompose
+import com.testdeymervilla.interdata.features.locality.LocalityScreenActions
+import com.testdeymervilla.interdata.features.locality.LocalityScreenAttributes
+import com.testdeymervilla.interdata.features.locality.LocalityScreenCompose
 import com.testdeymervilla.interdata.features.login.LoginScreenActions
 import com.testdeymervilla.interdata.features.login.LoginScreenAttributes
 import com.testdeymervilla.interdata.features.login.LoginScreenCompose
@@ -228,7 +234,21 @@ private fun BodyCompose(
                     enterTransition = { inFadeAnimation() },
                     exitTransition = { outFadeAnimation() }
                 ) {
-
+                    LocalitiesScreenCompose(
+                        attributes = LocalitiesScreenAttributes(
+                            actions = LocalitiesScreenActions(
+                                onPrimaryAction = {
+                                    navController.popBackStack()
+                                },
+                                onSecondaryAction = { localityId ->
+                                    navController.navigate(LocalityDetailScreen.createRoute(localityId)) {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            ),
+                            snackbarHostState = snackbarHostState
+                        )
+                    )
                 }
                 composable(
                     route = LocalityDetailScreen.route,
@@ -237,6 +257,17 @@ private fun BodyCompose(
                     exitTransition = { outFadeAnimation() }
                 ) { backStackEntry ->
                     val localityId = backStackEntry.arguments?.getInt(RouteArguments.LOCALITY_ID) ?: 0
+                    LocalityScreenCompose(
+                        attributes = LocalityScreenAttributes(
+                            localityId = localityId,
+                            actions = LocalityScreenActions(
+                                onPrimaryAction = {
+                                    navController.popBackStack()
+                                },
+                            ),
+                            snackbarHostState = snackbarHostState
+                        )
+                    )
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.testdeymervilla.datasource.di
 
+import com.testdeymervilla.datasource.local.locality.ILocalityLocalDataSource
+import com.testdeymervilla.datasource.local.locality.LocalityLocalDataSource
 import com.testdeymervilla.datasource.local.schema.ISchemaLocalDataSource
 import com.testdeymervilla.datasource.local.schema.SchemaLocalDataSource
 import com.testdeymervilla.datasource.local.user.IUserLocalDataSource
@@ -25,4 +27,10 @@ abstract class LocalDataSourceModule {
     abstract fun bindSchemaLocalDataSource(
         implSchemaLocalDataSource: SchemaLocalDataSource
     ): ISchemaLocalDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindLocalityLocalDataSource(
+        implLocalityLocalDataSource: LocalityLocalDataSource
+    ): ILocalityLocalDataSource
 }

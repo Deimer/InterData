@@ -24,9 +24,12 @@
     <string name="localities">Localities</string>
     <string name="identification">Identification: %1$s</string>
     <string name="name">Name: %1$s</string>
-
     <string name="fields_count">Fields count: %1$d</string>
     <string name="batch_size">Batch size: %1$d</string>
     <string name="updated_at">Last updated: %1$s</string>
+    <string name="city_code">City code: %1$s</string>
+    <string name="zip_code">Zip code: %1$s</string>
+    <string name="pickup_value">Pickup value: %1$s</string>
+    <string name="username_tag">Username: %1$s</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package com.testdeymervilla.interdata.di
 
+import com.testdeymervilla.repository.repositories.locality.ILocalityRepository
 import com.testdeymervilla.repository.repositories.schema.ISchemaRepository
 import com.testdeymervilla.repository.repositories.user.IUserRepository
+import com.testdeymervilla.usecase.locality.FetchLocalitiesUseCase
+import com.testdeymervilla.usecase.locality.FetchLocalityUseCase
 import com.testdeymervilla.usecase.schema.FetchSchemaUseCase
 import com.testdeymervilla.usecase.schema.FetchSchemasUseCase
 import com.testdeymervilla.usecase.user.FetchUserUseCase
@@ -53,4 +56,16 @@ object UseCaseModule {
     fun provideFetchSchemaUseCase(
         schemaRepository: ISchemaRepository
     ) = FetchSchemaUseCase(schemaRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideFetchLocalitiesUseCase(
+        localityRepository: ILocalityRepository
+    ) = FetchLocalitiesUseCase(localityRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideFetchLocalityUseCase(
+        localityRepository: ILocalityRepository
+    ) = FetchLocalityUseCase(localityRepository)
 }

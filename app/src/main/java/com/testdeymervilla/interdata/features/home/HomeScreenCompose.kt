@@ -16,6 +16,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.testdeymervilla.interdata.utils.mockUser
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.alerts.ErrorDetailCompose
 import com.testdeymervilla.presentation.alerts.LoadingScreenCompose
@@ -63,7 +64,7 @@ private fun BodyContent(
     ) {
         TopBarCompose(
             title = stringResource(id = R.string.home),
-            subtitle = stringResource(id = R.string.hi_user, userDomain.fullName.capital()),
+            subtitle = stringResource(id = R.string.hi_user, userDomain.shortName),
             modifier = Modifier,
         )
 
@@ -82,10 +83,22 @@ private fun BodyContent(
 
         Text(
             modifier = Modifier.fillMaxWidth().padding(
+                top = dimensionResource(id = R.dimen.dimen_18),
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.name, userDomain.fullName),
+            text = stringResource(R.string.username_tag, userDomain.username),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(
+                top = dimensionResource(id = R.dimen.dimen_18),
+                start = dimensionResource(id = R.dimen.dimen_16),
+                end = dimensionResource(id = R.dimen.dimen_16)
+            ),
+            text = stringResource(R.string.name, userDomain.fullName.capital()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -99,7 +112,7 @@ private fun BodyContent(
         )
 
         TapButtonCompose(
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.dimen_18)),
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.dimen_26)),
             text = stringResource(id = R.string.view_localities),
             buttonStyle = ButtonStyle.Secondary,
             size = ButtonSize.Normal,
@@ -120,19 +133,12 @@ private fun BodyContent(
 )
 @Composable
 private fun BodyContentPreview() {
-    val mockUser = UserDomain(
-        id = 1,
-        username = "test.user",
-        identification = "123456789",
-        fullName = "Test User"
-    )
-    val mockActions = HomeScreenActions(
-        onPrimaryAction = {},
-        onSecondaryAction = {}
-    )
     InterDataTheme {
         BodyContent(
-            actions = mockActions,
+            actions = HomeScreenActions(
+                onPrimaryAction = {},
+                onSecondaryAction = {}
+            ),
             userDomain = mockUser
         )
     }
