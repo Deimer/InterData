@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_welcome">Prueba Técnica Android</string>
+    <string name="legend_welcome">Esta es una aplicación de prueba técnica para validar los conocimientos en Android del candidato.</string>
+    <string name="continue_as_before">Continuar igualmente</string>
+    <string name="home">Inicio</string>
+    <string name="greater_version">La versión de la aplicación es superior a la versión oficial.\nAlgunas funcionalidades podrían no comportarse correctamente.</string>
+    <string name="lower_version">Existe una versión más reciente del aplicativo.\nSe recomienda actualizar la aplicación para un mejor funcionamiento.</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="connection_error_message">Ocurrió un error al conectarse con el servidor. Por favor, verifica tu conexión a internet e inténtalo nuevamente.</string>
+    <string name="error_generic">Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.</string>
+    <string name="log_in">Inicia sesión</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="enter_username_and_password">Por favor, completa todos los campos.</string>
+    <string name="enter_username">Por favor, ingresa tu usuario.</string>
+    <string name="enter_password">Por favor, ingresa tu contraseña.</string>
+    <string name="invalid_credentials">El usuario o la contraseña que ingresaste son incorrectos. Por favor, inténtalo de nuevo.</string>
+    <string name="hi_user">Hola %1$s!</string>
+    <string name="see_schemas">Ver tablas</string>
+    <string name="view_localities">Ver localidades</string>
+    <string name="schemas">Tablas</string>
+    <string name="localities">Localidades</string>
+    <string name="identification">Identificación: %1$s</string>
+    <string name="name">Nombre: %1$s</string>
+    <string name="fields_count">Cantidad de campos: %1$d</string>
+    <string name="batch_size">Tamaño de lote (Batch): %1$d</string>
+    <string name="updated_at">Última actualización: %1$s</string>
+    <string name="city_code">Ciudad: %1$s</string>
+    <string name="zip_code">Código postal: %1$s</string>
+    <string name="pickup_value">Valor de recogida: %1$s</string>
+    <string name="username_tag">Usuario: %1$s</string>
+
+</resources>

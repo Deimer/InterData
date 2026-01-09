@@ -19,5 +19,13 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "InterData"
 include(":app")
+include(":database")
+include(":network")
+include(":datasource")
+include(":repository")
+include(":usecase")
+include(":presentation")
