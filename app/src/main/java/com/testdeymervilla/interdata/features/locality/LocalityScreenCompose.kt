@@ -1,4 +1,4 @@
-package com.testdeymervilla.interdata.features.schema
+package com.testdeymervilla.interdata.features.locality
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -16,33 +16,32 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.testdeymervilla.interdata.utils.mockSchemas
+import com.testdeymervilla.interdata.utils.mockLocalities
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.alerts.ErrorDetailCompose
 import com.testdeymervilla.presentation.alerts.LoadingScreenCompose
 import com.testdeymervilla.presentation.components.DividerCompose
 import com.testdeymervilla.presentation.components.TopBarCompose
 import com.testdeymervilla.presentation.theme.InterDataTheme
-import com.testdeymervilla.repository.domain.SchemaDomain
-import com.testdeymervilla.repository.utils.orZero
+import com.testdeymervilla.repository.domain.LocalityDomain
 
 @Composable
-fun SchemaScreenCompose(
-    viewModel: SchemaScreenViewModel = hiltViewModel(),
-    attributes: SchemaScreenAttributes
+fun LocalityScreenCompose(
+    viewModel: LocalityScreenViewModel = hiltViewModel(),
+    attributes: LocalityScreenAttributes
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val schemaDomain by viewModel.schemaDomain.collectAsState()
-    viewModel.getSchema(attributes.schemaId)
+    val localityDomain by viewModel.localityDomain.collectAsState()
+    viewModel.getLocality(attributes.localityId)
 
     when(uiState) {
-        is SchemaUiState.Success -> BodyCompose(
+        is LocalityUiState.Success -> BodyCompose(
             actions = attributes.actions,
-            schemaDomain = schemaDomain
+            localityDomain = localityDomain
         )
-        is SchemaUiState.Loading -> LoadingScreenCompose()
-        is SchemaUiState.Error -> {
-            val errorMessage = (uiState as SchemaUiState.Error).message
+        is LocalityUiState.Loading -> LoadingScreenCompose()
+        is LocalityUiState.Error -> {
+            val errorMessage = (uiState as LocalityUiState.Error).message
             ErrorDetailCompose(errorMessage, attributes.snackbarHostState)
         }
     }
@@ -50,8 +49,8 @@ fun SchemaScreenCompose(
 
 @Composable
 private fun BodyCompose(
-    actions: SchemaScreenActions,
-    schemaDomain: SchemaDomain?,
+    actions: LocalityScreenActions,
+    localityDomain: LocalityDomain?,
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(
@@ -62,7 +61,7 @@ private fun BodyCompose(
         TopBarCompose(
             navigationIcon = R.drawable.ic_back,
             onNavigationClick = actions.onPrimaryAction,
-            subtitle = schemaDomain?.tableName.orEmpty(),
+            subtitle = localityDomain?.cityAbbreviation.orEmpty(),
             modifier = Modifier,
         )
 
@@ -74,7 +73,7 @@ private fun BodyCompose(
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.fields_count, schemaDomain?.fieldsCount.orZero()),
+            text = stringResource(R.string.name, localityDomain?.name.orEmpty()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -85,7 +84,7 @@ private fun BodyCompose(
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.batch_size, schemaDomain?.batchSize.orZero()),
+            text = stringResource(R.string.city_code, localityDomain?.cityAbbreviation.orEmpty()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -96,7 +95,18 @@ private fun BodyCompose(
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.updated_at, schemaDomain?.updatedAt.orEmpty()),
+            text = stringResource(R.string.zip_code, localityDomain?.zipCode.orEmpty()),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(
+                top = dimensionResource(id = R.dimen.dimen_18),
+                start = dimensionResource(id = R.dimen.dimen_16),
+                end = dimensionResource(id = R.dimen.dimen_16)
+            ),
+            text = stringResource(R.string.pickup_value, localityDomain?.pickupValue.orEmpty()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -115,13 +125,13 @@ private fun BodyCompose(
 )
 @Composable
 private fun BodyComposePreview() {
-    val mockActions = SchemaScreenActions(
+    val mockActions = LocalityScreenActions(
         onPrimaryAction = {}
     )
     InterDataTheme {
         BodyCompose(
             actions = mockActions,
-            schemaDomain = mockSchemas.first()
+            localityDomain = mockLocalities.first()
         )
     }
 }

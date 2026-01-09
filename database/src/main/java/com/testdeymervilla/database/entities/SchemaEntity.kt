@@ -8,7 +8,7 @@ import com.testdeymervilla.database.constants.DatabaseConstants.Tables
 
 @Entity(tableName = Tables.SCHEMA_TABLE)
 data class SchemaEntity(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = Columns.ID)
     val id: Int,
     @ColumnInfo(name = Columns.TABLE_NAME)

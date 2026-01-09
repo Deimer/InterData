@@ -10,6 +10,7 @@ object DatabaseConstants {
     object Tables {
         const val USER_TABLE = "user_table"
         const val SCHEMA_TABLE = "schema_table"
+        const val LOCALITY_TABLE = "locality_table"
     }
 
     object Columns {
@@ -24,5 +25,9 @@ object DatabaseConstants {
         const val FILTER = "filter"
         const val FIELDS_COUNT = "fields_count"
         const val UPDATE_DATE = "update_date"
+        const val CITY_ABBREVIATION = "city_abbreviation"
+        const val NAME = "name"
+        const val ZIP_CODE = "zip_code"
+        const val PICKUP_VALUE = "pickup_value"
     }
 }

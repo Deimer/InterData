@@ -46,7 +46,7 @@ sealed class AppScreens(val route: String) {
     }
     object LocalitiesScreen: AppScreens(LOCALITIES)
     object LocalityDetailScreen: AppScreens("$LOCALITY/{${RouteArguments.LOCALITY_ID}}") {
-        fun createRoute(localityId: String) = "$LOCALITY/$localityId"
+        fun createRoute(localityId: Int) = "$LOCALITY/$localityId"
     }
 
     object RootGraph: AppScreens(ROOT_GRAPH)

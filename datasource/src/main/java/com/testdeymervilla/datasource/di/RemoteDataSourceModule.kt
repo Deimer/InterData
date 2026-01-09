@@ -1,5 +1,7 @@
 package com.testdeymervilla.datasource.di
 
+import com.testdeymervilla.datasource.remote.locality.ILocalityRemoteDataSource
+import com.testdeymervilla.datasource.remote.locality.LocalityRemoteDataSource
 import com.testdeymervilla.datasource.remote.schema.ISchemaRemoteDataSource
 import com.testdeymervilla.datasource.remote.schema.SchemaRemoteDataSource
 import com.testdeymervilla.datasource.remote.user.IUserRemoteDataSource
@@ -25,4 +27,10 @@ abstract class RemoteDataSourceModule {
     abstract fun bindSchemaRemoteDataSource(
         implSchemaRemoteDataSource: SchemaRemoteDataSource
     ): ISchemaRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindLocalityRemoteDataSource(
+        implLocalityRemoteDataSource: LocalityRemoteDataSource
+    ): ILocalityRemoteDataSource
 }

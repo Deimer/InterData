@@ -4,5 +4,6 @@ data class UserDomain(
     val id: Int,
     val username: String,
     val identification: String,
-    val fullName: String
+    val fullName: String,
+    val shortName: String
 )

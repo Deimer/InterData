@@ -36,4 +36,10 @@ object RoomModule {
     fun provideSchemaDao(
         database: InterDataDatabase
     ) = database.getSchemaDao()
+
+    @Singleton
+    @Provides
+    fun provideLocalityDao(
+        database: InterDataDatabase
+    ) = database.getLocalityDao()
 }

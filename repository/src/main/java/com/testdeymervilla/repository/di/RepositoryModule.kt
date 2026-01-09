@@ -1,5 +1,7 @@
 package com.testdeymervilla.repository.di
 
+import com.testdeymervilla.repository.repositories.locality.ILocalityRepository
+import com.testdeymervilla.repository.repositories.locality.LocalityRepository
 import com.testdeymervilla.repository.repositories.schema.ISchemaRepository
 import com.testdeymervilla.repository.repositories.schema.SchemaRepository
 import com.testdeymervilla.repository.repositories.user.IUserRepository
@@ -22,4 +24,9 @@ abstract class RepositoryModule {
     abstract fun bindSchemaRepository(
         implRepository: SchemaRepository
     ): ISchemaRepository
+
+    @Binds
+    abstract fun bindLocalityRepository(
+        implRepository: LocalityRepository
+    ): ILocalityRepository
 }

@@ -1,12 +1,15 @@
 package com.testdeymervilla.repository.utils
 
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 private const val TAG_DATE_FORMAT_IN = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
 private const val TAG_DATE_FORMAT_OUT = "EEEE d, MMMM, yyyy - HH:mm"
 private const val TAG_DATE_UNKNOWN = "Unknown"
-const val TAG_SHORT_DATE_FORMAT_OUT = "MMMM, EEEE d, yyyy"
+private const val LANG_ES = "es"
+private const val COUNTRY_CO = "CO"
+private const val LOCALE_TAG_CO = "$LANG_ES-$COUNTRY_CO"
 
 fun String?.toHumanDate(
     dateFormatOut: String = TAG_DATE_FORMAT_OUT
@@ -22,3 +25,19 @@ fun String?.toHumanDate(
 }
 
 fun Int?.orZero(): Int = this ?: 0
+
+fun Float?.toCopFormat(): String {
+    val amount = this ?: 0f
+    val locale = Locale.forLanguageTag(LOCALE_TAG_CO)
+    val format = NumberFormat.getCurrencyInstance(locale).apply {
+        minimumFractionDigits = 0
+        maximumFractionDigits = 0
+    }
+    return format.format(amount)
+}
+
+fun String?.firstName(): String {
+    if (this.isNullOrBlank()) return ""
+    val normalized = trim().replace(Regex("\\s+"), " ")
+    return normalized.substringBefore(" ")
+}
