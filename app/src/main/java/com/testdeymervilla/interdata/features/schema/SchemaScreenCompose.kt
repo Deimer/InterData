@@ -1,4 +1,4 @@
-package com.testdeymervilla.interdata.features.home
+package com.testdeymervilla.interdata.features.schema
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -16,44 +16,42 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.testdeymervilla.interdata.utils.mockSchemas
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.alerts.ErrorDetailCompose
 import com.testdeymervilla.presentation.alerts.LoadingScreenCompose
-import com.testdeymervilla.presentation.components.ButtonSize
-import com.testdeymervilla.presentation.components.ButtonStyle
 import com.testdeymervilla.presentation.components.DividerCompose
-import com.testdeymervilla.presentation.components.TapButtonCompose
 import com.testdeymervilla.presentation.components.TopBarCompose
 import com.testdeymervilla.presentation.theme.InterDataTheme
-import com.testdeymervilla.presentation.utils.capital
-import com.testdeymervilla.repository.domain.UserDomain
+import com.testdeymervilla.repository.domain.SchemaDomain
+import com.testdeymervilla.repository.utils.orZero
 
 @Composable
-fun HomeScreenCompose(
-    viewModel: HomeScreenViewModel = hiltViewModel(),
-    attributes: HomeScreenAttributes
+fun SchemaScreenCompose(
+    viewModel: SchemaScreenViewModel = hiltViewModel(),
+    attributes: SchemaScreenAttributes
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val schemaDomain by viewModel.schemaDomain.collectAsState()
+    viewModel.getSchema(attributes.schemaId)
 
-    when(val state = uiState) {
-        is HomeUiState.Loading -> LoadingScreenCompose()
-        is HomeUiState.Success -> {
-            BodyContent(
-                actions = attributes.actions,
-                userDomain = state.user
-            )
-        }
-        is HomeUiState.Error -> {
-            val errorMessage = state.message
+    when(uiState) {
+        is SchemaUiState.Success -> BodyCompose(
+            actions = attributes.actions,
+            schemaDomain = schemaDomain
+        )
+        is SchemaUiState.Loading -> LoadingScreenCompose()
+        is SchemaUiState.Error -> {
+            val errorMessage = (uiState as SchemaUiState.Error).message
             ErrorDetailCompose(errorMessage, attributes.snackbarHostState)
         }
     }
 }
 
 @Composable
-private fun BodyContent(
-    actions: HomeScreenActions,
-    userDomain: UserDomain
+private fun BodyCompose(
+    actions: SchemaScreenActions,
+    schemaDomain: SchemaDomain?,
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(
@@ -62,8 +60,9 @@ private fun BodyContent(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBarCompose(
-            title = stringResource(id = R.string.home),
-            subtitle = stringResource(id = R.string.hi_user, userDomain.fullName.capital()),
+            navigationIcon = R.drawable.ic_back,
+            onNavigationClick = actions.onPrimaryAction,
+            subtitle = schemaDomain?.tableName.orEmpty(),
             modifier = Modifier,
         )
 
@@ -75,7 +74,7 @@ private fun BodyContent(
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.identification, userDomain.identification),
+            text = stringResource(R.string.fields_count, schemaDomain?.fieldsCount.orZero()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
@@ -85,25 +84,19 @@ private fun BodyContent(
                 start = dimensionResource(id = R.dimen.dimen_16),
                 end = dimensionResource(id = R.dimen.dimen_16)
             ),
-            text = stringResource(R.string.name, userDomain.fullName),
+            text = stringResource(R.string.batch_size, schemaDomain?.batchSize.orZero()),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary
         )
 
-        TapButtonCompose(
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.dimen_46)),
-            text = stringResource(id = R.string.see_schemas),
-            buttonStyle = ButtonStyle.Primary,
-            size = ButtonSize.Normal,
-            onClick = { actions.onPrimaryAction.invoke() }
-        )
-
-        TapButtonCompose(
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.dimen_18)),
-            text = stringResource(id = R.string.view_localities),
-            buttonStyle = ButtonStyle.Secondary,
-            size = ButtonSize.Normal,
-            onClick = { actions.onSecondaryAction.invoke() }
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(
+                start = dimensionResource(id = R.dimen.dimen_16),
+                end = dimensionResource(id = R.dimen.dimen_16)
+            ),
+            text = stringResource(R.string.updated_at, schemaDomain?.updatedAt.orEmpty()),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
@@ -119,21 +112,14 @@ private fun BodyContent(
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun BodyContentPreview() {
-    val mockUser = UserDomain(
-        id = 1,
-        username = "test.user",
-        identification = "123456789",
-        fullName = "Test User"
-    )
-    val mockActions = HomeScreenActions(
-        onPrimaryAction = {},
-        onSecondaryAction = {}
+private fun BodyComposePreview() {
+    val mockActions = SchemaScreenActions(
+        onPrimaryAction = {}
     )
     InterDataTheme {
-        BodyContent(
+        BodyCompose(
             actions = mockActions,
-            userDomain = mockUser
+            schemaDomain = mockSchemas.first()
         )
     }
 }

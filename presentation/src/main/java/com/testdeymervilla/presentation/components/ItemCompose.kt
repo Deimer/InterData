@@ -45,7 +45,7 @@ fun ItemCompose(
                     .padding(
                         end = dimensionResource(id = R.dimen.dimen_12),
                     ),
-                tint = CyanSkyDark
+                tint = MaterialTheme.colorScheme.surfaceTint
             )
         }
         Column(
@@ -60,11 +60,13 @@ fun ItemCompose(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 text = itemUi.title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary
             )
             Text(
                 text = itemUi.description,
                 style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary
             )
         }
         itemUi.endIcon?.let { icon ->
@@ -74,7 +76,7 @@ fun ItemCompose(
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.dimen_32))
                     .padding(start = dimensionResource(id = R.dimen.dimen_12)),
-                tint = CyanSkyDark
+                tint = MaterialTheme.colorScheme.surfaceTint
             )
         }
     }

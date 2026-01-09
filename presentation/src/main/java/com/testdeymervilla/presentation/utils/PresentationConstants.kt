@@ -10,6 +10,6 @@ object PresentationConstants {
         const val SPEED_ANIMATION_SIMPLE = 1f
         const val SPEED_ANIMATION = 2f
         const val TRANSITION_DURATION = 700
-        const val TRANSITION_DURATION_SCROLL = 6000L
+        const val DURATION_LAUNCH_EFFECT = 2000L
     }
 }

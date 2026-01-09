@@ -3,6 +3,7 @@
 
     <string name="title_welcome">Technical Test Android</string>
     <string name="legend_welcome">This is a technical testing application to validate the candidate\'s Android knowledge.</string>
+    <string name="continue_as_before">Continue as before</string>
     <string name="home">Home</string>
     <string name="greater_version">The application version is superior to the official version.\nSome features may not work as expected.</string>
     <string name="lower_version">A newer application version is available.\nPlease update the application for better performance.</string>
@@ -16,9 +17,16 @@
     <string name="enter_username">Please enter your username.</string>
     <string name="enter_password">Please enter your password.</string>
     <string name="invalid_credentials">The username or password you entered is incorrect. Please try again.</string>
-
     <string name="hi_user">Hi %1$s!</string>
     <string name="see_schemas">See schemas</string>
     <string name="view_localities">View localities</string>
+    <string name="schemas">Schemas</string>
+    <string name="localities">Localities</string>
+    <string name="identification">Identification: %1$s</string>
+    <string name="name">Name: %1$s</string>
+
+    <string name="fields_count">Fields count: %1$d</string>
+    <string name="batch_size">Batch size: %1$d</string>
+    <string name="updated_at">Last updated: %1$s</string>
 
 </resources>
