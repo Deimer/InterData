@@ -28,6 +28,12 @@ import com.testdeymervilla.interdata.features.home.HomeScreenCompose
 import com.testdeymervilla.interdata.features.login.LoginScreenActions
 import com.testdeymervilla.interdata.features.login.LoginScreenAttributes
 import com.testdeymervilla.interdata.features.login.LoginScreenCompose
+import com.testdeymervilla.interdata.features.schema.SchemaScreenActions
+import com.testdeymervilla.interdata.features.schema.SchemaScreenAttributes
+import com.testdeymervilla.interdata.features.schema.SchemaScreenCompose
+import com.testdeymervilla.interdata.features.schemas.SchemasScreenActions
+import com.testdeymervilla.interdata.features.schemas.SchemasScreenAttributes
+import com.testdeymervilla.interdata.features.schemas.SchemasScreenCompose
 import com.testdeymervilla.interdata.features.splash.SplashScreenActions
 import com.testdeymervilla.interdata.features.splash.SplashScreenAttributes
 import com.testdeymervilla.interdata.features.splash.SplashScreenCompose
@@ -176,7 +182,21 @@ private fun BodyCompose(
                     enterTransition = { inFadeAnimation() },
                     exitTransition = { outFadeAnimation() }
                 ) {
-
+                    SchemasScreenCompose(
+                        attributes = SchemasScreenAttributes(
+                            actions = SchemasScreenActions(
+                                onPrimaryAction = {
+                                    navController.popBackStack()
+                                },
+                                onSecondaryAction = { schemaId ->
+                                    navController.navigate(SchemaDetailScreen.createRoute(schemaId)) {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            ),
+                            snackbarHostState = snackbarHostState
+                        )
+                    )
                 }
                 composable(
                     route = SchemaDetailScreen.route,
@@ -185,6 +205,17 @@ private fun BodyCompose(
                     exitTransition = { outFadeAnimation() }
                 ) { backStackEntry ->
                     val schemaId = backStackEntry.arguments?.getInt(RouteArguments.SCHEMA_ID) ?: 0
+                    SchemaScreenCompose(
+                        attributes = SchemaScreenAttributes(
+                            schemaId = schemaId,
+                            actions = SchemaScreenActions(
+                                onPrimaryAction = {
+                                    navController.popBackStack()
+                                },
+                            ),
+                            snackbarHostState = snackbarHostState
+                        )
+                    )
                 }
             }
 

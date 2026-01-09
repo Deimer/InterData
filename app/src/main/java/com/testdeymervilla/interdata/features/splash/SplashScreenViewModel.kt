@@ -47,11 +47,7 @@ class SplashViewModel @Inject constructor(
     private val _userIsLogged = MutableStateFlow<Boolean?>(null)
     val userIsLogged = _userIsLogged.asStateFlow()
 
-    init {
-        fetchVersion()
-    }
-
-    private fun fetchVersion() {
+    fun fetchVersion() {
         fetchVersionUseCase().map { serviceVersion ->
             val localVersion = BuildConfig.VERSION_NAME
             val result = localVersion.compareVersion(serviceVersion)

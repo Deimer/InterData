@@ -13,8 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -22,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.testdeymervilla.presentation.R
 import com.testdeymervilla.presentation.alerts.ConnectionErrorScreenCompose
 import com.testdeymervilla.presentation.alerts.ErrorDetailCompose
@@ -29,40 +32,44 @@ import com.testdeymervilla.presentation.components.LottieCompose
 import com.testdeymervilla.presentation.components.StatusCompose
 import com.testdeymervilla.presentation.models.VersionStatus
 import com.testdeymervilla.presentation.theme.InterDataTheme
+import com.testdeymervilla.presentation.utils.PresentationConstants.AnimationConstants.DURATION_LAUNCH_EFFECT
 import com.testdeymervilla.presentation.utils.PresentationConstants.AnimationConstants.ITERATION_SIMPLE
+import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreenCompose(
     viewModel: SplashViewModel = hiltViewModel(),
     attributes: SplashScreenAttributes
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val versionValidation by viewModel.versionValidation.collectAsState()
     val userIsLogged by viewModel.userIsLogged.collectAsState()
 
+    val navigate: () -> Unit = when(userIsLogged) {
+        true -> attributes.actions.onPrimaryAction
+        false -> attributes.actions.onSecondaryAction
+        else -> ({})
+    }
+
     when(uiState) {
-        is SplashUiState.Default -> BodyContent(versionValidation = versionValidation)
+        is SplashUiState.Default -> BodyContent(
+            versionValidation = versionValidation,
+            launchGetVersion = viewModel::fetchVersion,
+            navigate = navigate
+        )
         is SplashUiState.ConnectionError -> ConnectionErrorScreenCompose()
         is SplashUiState.Error -> {
             val errorMessage = (uiState as SplashUiState.Error).message
             ErrorDetailCompose(errorMessage, attributes.snackbarHostState)
         }
     }
-
-    when(userIsLogged) {
-        true -> {
-            attributes.actions.onPrimaryAction.invoke()
-        }
-        false -> {
-            attributes.actions.onSecondaryAction.invoke()
-        }
-        else -> {}
-    }
 }
 
 @Composable
 private fun BodyContent(
-    versionValidation: VersionValidation? = null
+    versionValidation: VersionValidation? = null,
+    launchGetVersion: () -> Unit = {},
+    navigate: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -75,7 +82,8 @@ private fun BodyContent(
         LottieCompose(
             rawRes = R.raw.ic_welcome,
             size = dimensionResource(id = R.dimen.dimen_220),
-            iterations = ITERATION_SIMPLE
+            iterations = ITERATION_SIMPLE,
+            onAnimationEnd = { launchGetVersion.invoke() }
         )
         Column(
             modifier = Modifier
@@ -105,21 +113,32 @@ private fun BodyContent(
                     .height(dimensionResource(id = R.dimen.dimen_16))
                     .fillMaxWidth()
             )
-            val status = when(versionValidation) {
-                is VersionValidation.SameVersion -> VersionStatus.SAME
-                is VersionValidation.GreaterVersion -> VersionStatus.GREATER
-                is VersionValidation.LowerVersion -> VersionStatus.LOWER
-                else -> VersionStatus.SAME
+            when(versionValidation) {
+                is VersionValidation.SameVersion -> {
+                    StatusCompose(
+                        versionStatus = VersionStatus.SAME,
+                        versionName = versionValidation.localVersion,
+                    )
+                    val currentNavigate by rememberUpdatedState(navigate)
+                    LaunchedEffect(versionValidation) {
+                        delay(DURATION_LAUNCH_EFFECT)
+                        currentNavigate()
+                    }
+                }
+                is VersionValidation.GreaterVersion -> {
+                    StatusCompose(
+                        versionStatus = VersionStatus.GREATER,
+                        onClickButton = navigate
+                    )
+                }
+                is VersionValidation.LowerVersion -> {
+                    StatusCompose(
+                        versionStatus = VersionStatus.LOWER,
+                        onClickButton = navigate
+                    )
+                }
+                else -> {}
             }
-            val version = when(versionValidation) {
-                is VersionValidation.SameVersion -> versionValidation.localVersion
-                else -> ""
-            }
-            StatusCompose(
-                versionStatus = status,
-                versionName = version,
-                onClick = {}
-            )
         }
     }
 }
@@ -131,7 +150,8 @@ private fun SplashScreenPreview() {
     InterDataTheme {
         Scaffold {
             BodyContent(
-                versionValidation = VersionValidation.LowerVersion
+                versionValidation = VersionValidation.LowerVersion,
+                navigate = {}
             )
         }
     }

@@ -7,11 +7,17 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,24 +47,38 @@ import com.testdeymervilla.presentation.theme.JunoGreen
 fun StatusCompose(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    onClickButton: () -> Unit = {},
     versionName: String = "",
     versionStatus: VersionStatus?
 ) {
-    Row(
-        modifier = modifier.clickable { onClick.invoke() },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        StatusDotCompose(status = versionStatus)
-        Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_4)))
-        Text(
-            text = when (versionStatus) {
-                VersionStatus.SAME -> versionName
-                VersionStatus.LOWER -> stringResource(id = R.string.lower_version)
-                VersionStatus.GREATER -> stringResource(id = R.string.greater_version)
-                else -> versionName
-            },
-            style = MaterialTheme.typography.labelMedium,
-        )
+    Column {
+        Row(
+            modifier = modifier.height(IntrinsicSize.Max)
+                .clickable { onClick.invoke() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            StatusDotCompose(status = versionStatus)
+            Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_4)))
+            Text(
+                text = when(versionStatus) {
+                    VersionStatus.SAME -> versionName
+                    VersionStatus.LOWER -> stringResource(id = R.string.lower_version)
+                    VersionStatus.GREATER -> stringResource(id = R.string.greater_version)
+                    else -> versionName
+                },
+                style = MaterialTheme.typography.labelMedium,
+            )
+        }
+        if(versionStatus != VersionStatus.SAME) {
+            TapButtonCompose(
+                modifier = Modifier.padding(top = dimensionResource(R.dimen.dimen_8)),
+                text = stringResource(id = R.string.continue_as_before),
+                buttonStyle = ButtonStyle.Primary,
+                size = ButtonSize.Normal,
+                onClick = onClickButton
+            )
+            Spacer(Modifier.width(dimensionResource(id = R.dimen.dimen_18)))
+        }
     }
 }
 
@@ -67,7 +87,7 @@ fun StatusDotCompose(
     status: VersionStatus?,
     size: Dp = dimensionResource(id = R.dimen.dimen_10)
 ) {
-    val color = when (status) {
+    val color = when(status) {
         VersionStatus.SAME -> JunoGreen
         VersionStatus.LOWER -> IndianRed
         VersionStatus.GREATER -> GoldenPoppy
@@ -82,14 +102,27 @@ fun StatusDotCompose(
         ),
     )
     LaunchedEffect(Unit) { appear = true }
+
+    val shape = if(status == VersionStatus.SAME) {
+        CircleShape
+    } else {
+        RoundedCornerShape(dimensionResource(id = R.dimen.dimen_4))
+    }
+
+    val sizeModifier = if(status == VersionStatus.SAME) {
+        Modifier.size(size)
+    } else {
+        Modifier.width(dimensionResource(id = R.dimen.dimen_6)).fillMaxHeight()
+    }
+
     Box(
         modifier = Modifier
             .scale(scale)
             .shadow(
                 elevation = dimensionResource(id = R.dimen.dimen_6),
-                shape = CircleShape,
+                shape = shape,
                 clip = false
-            ).size(size)
+            ).then(sizeModifier)
             .clip(CircleShape)
             .background(color)
     )
@@ -104,6 +137,7 @@ private fun StatusComposeAlivePreview() {
     InterDataTheme {
         StatusCompose(
             versionStatus = VersionStatus.SAME,
+            versionName = "100",
             onClick = {}
         )
     }

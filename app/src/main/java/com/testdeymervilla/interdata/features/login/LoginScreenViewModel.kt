@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.onCompletion
 import javax.inject.Inject
 
 sealed class LoginUiState {
@@ -93,6 +94,7 @@ class LoginScreenViewModel @Inject constructor(
             exception.default {
                 _errorState.emit(LoginErrorState.Error(exception.message.orEmpty()))
             }
+        }.onCompletion {
             _uiState.emit(LoginUiState.Default)
         }.launchIn(viewModelScope, ioDispatcher)
     }
