@@ -1,4 +1,4 @@
-package com.testdeymervilla.datasource.data
+package com.testdeymervilla.database.data
 
 import com.testdeymervilla.database.entities.LocalityEntity
 import com.testdeymervilla.database.entities.SchemaEntity

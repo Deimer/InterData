@@ -1,4 +1,4 @@
-package com.testdeymervilla.datasource
+package com.testdeymervilla.database
 
 import android.content.Context
 import androidx.room.Room
@@ -7,12 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.testdeymervilla.database.dao.LocalityDao
 import com.testdeymervilla.database.dao.SchemaDao
 import com.testdeymervilla.database.dao.UserDao
+import com.testdeymervilla.database.data.dummyLocalityEntity
+import com.testdeymervilla.database.data.dummyLocalityEntityList
+import com.testdeymervilla.database.data.dummySchemaEntityList
+import com.testdeymervilla.database.data.dummyUserEntity
+import com.testdeymervilla.database.data.dummyUserEntityUpdated
 import com.testdeymervilla.database.factory.InterDataDatabase
-import com.testdeymervilla.datasource.data.dummyLocalityEntity
-import com.testdeymervilla.datasource.data.dummyLocalityEntityList
-import com.testdeymervilla.datasource.data.dummySchemaEntityList
-import com.testdeymervilla.datasource.data.dummyUserEntity
-import com.testdeymervilla.datasource.data.dummyUserEntityUpdated
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertTrue
