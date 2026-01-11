@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
 }
 
-val databaseDebug = providers.gradleProperty("DATABASE_DEBUG").get()
-val databaseRelease = providers.gradleProperty("DATABASE_RELEASE").get()
+val databaseDebug = providers.gradleProperty("DATABASE_DEBUG").getOrElse("inter_data_db_dev")
+val databaseRelease = providers.gradleProperty("DATABASE_RELEASE").getOrElse("inter_data_db")
 
 android {
     namespace = "com.testdeymervilla.database"
