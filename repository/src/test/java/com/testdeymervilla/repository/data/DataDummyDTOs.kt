@@ -31,7 +31,7 @@ val dummySchemaDTOList = listOf(
         error = null,
         fieldsNumber = 5,
         appMethod = "GET",
-        updatedAt = "2024-01-01"
+        updatedAt = "2026-01-10T17:42:15.384Z"
     )
 )
 

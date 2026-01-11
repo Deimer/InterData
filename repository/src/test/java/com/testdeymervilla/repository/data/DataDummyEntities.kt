@@ -41,7 +41,7 @@ val dummySchemaEntityList = listOf(
         batchSize = 50,
         filter = "filter",
         fieldsCount = 10,
-        updatedAt = "2024-01-01"
+        updatedAt = "2026-01-10T17:42:15.384Z"
     )
 )
 
