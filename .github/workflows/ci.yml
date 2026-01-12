@@ -22,6 +22,3 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Build app
         run: ./gradlew assemble
-        env:
-          DATABASE_DEBUG: "inter_data_db_dev"
-          DATABASE_RELEASE: "inter_data_db"
